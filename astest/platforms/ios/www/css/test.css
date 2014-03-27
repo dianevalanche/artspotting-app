@@ -1,0 +1,27 @@
+body {
+margin:1em;
+}
+
+p {
+	font-family: Georgia, serif;
+	font-size:1em;
+	line-height:1.4em;
+	color:#666;
+}
+h1 {
+	color:red;
+	font-family:sans-serif;
+	font-size:2em;
+}
+
+#map-canvas{
+width:80%;
+height:250px;
+overflow:visible !important;
+background-color:#666;
+}
+
+#leadimg {
+width:100%;
+height:auto;
+}
