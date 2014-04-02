@@ -25,4 +25,14 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="NativeTransitions">
+        <param name="ios-package" value="NativeTransitions" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="TabBar">
+        <param name="ios-package" value="CDVTabBar" />
+    </feature>
+    <feature name="MapKit">
+        <param name="ios-package" value="MapKitView" />
+    </feature>
 </widget>

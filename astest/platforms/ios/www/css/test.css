@@ -1,5 +1,4 @@
 body {
-margin:1em;
 }
 
 p {
@@ -25,3 +24,25 @@ background-color:#666;
 width:100%;
 height:auto;
 }
+
+.lead {
+max-width: 100%;
+width:90%
+}
+
+
+.nav-bar-top {
+position:fixed;
+top:25px;
+width:500px;
+height:25px;
+padding:5px;
+background: rgba(0,0,0,.5);
+
+}
+
+#prev-story{
+float: left;
+}
+#next-story{
+float:right;}

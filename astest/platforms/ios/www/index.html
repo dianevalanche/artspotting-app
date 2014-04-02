@@ -29,13 +29,53 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmPZzlfpnZ4NQC7-Tj2xeoHfqds1cR2QM&sensor=false">
             </script>
         
+        <!--MUSTACHE.JS DATA, TEMPLATE, AND SCRIPT TO ITERATE-->
+        <script>
+        $(function () {
+        var data = {
+        "story": [
+        {
+        "hed":"Wall of Rugs",
+        "dek":"A mural in North Philly somewhere",
+        "image":"WallOfRugs-LRG.jpg",
+        "text":"wallofrugs.html",
+        "address-text": "North Phillay",
+        "lat": "39.994195",
+        "long":"-75.154456",
+        }, 
+        {
+        "hed": "Memorial to the Korean War",
+        "dek": "No one looks forward to war memorials. This one especially.",
+        "image": "koreanWar_lead.jpg",
+        "text":"koreanWar.html",
+        "lat":"39.947450",
+        "long":"-75.152260",
+                  
+        }, {
+        "hed": "Swann Fountain",
+        "dek": "Why are the sculptures shooting water from their mouths? Creator Alexander Stirling Calder didn't know, and he certainly didn't care.",
+        "image": "swannFountain_lead.jpg",
+        "text":"swannFountain.html",
+        "lat":"39.958144",
+        "long":"-75.170678",
+        },
+        {
+        "hed": "Moon Tree",
+        "dek": "From the moon to Washington Square Park",
+        "image": "moonTree_lead.jpg",
+        "text":"moonTree.html",
+        "lat":"39.947450",
+        "long":"-75.152260",
+        }
+        ]
+        };
+
         <!--GOOGLE MAPS SCRIPT-->
-        <script type="text/javascript">
-            function initialize() {
-                var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+            function initializeMap() {
+                var myLatlng = new google.maps.LatLng(parseFloat(data.story[count].lat), parseFloat(data.story[count].long));
                 var mapOptions = {
                     center: myLatlng,
-                    zoom: 8
+                    zoom: 15
                 };
                 var map = new google.maps.Map(document.getElementById("map-canvas"),
                                               mapOptions);
@@ -46,35 +86,17 @@
                                                     title:"Hello World!"
                                                     })
             }
-            google.maps.event.addDomListener(window, 'load', initialize);
-            </script><!--END google maps -->
-        
-        <!--MUSTACHE.JS DATA, TEMPLATE, AND SCRIPT TO ITERATE-->
-        <script>
-        $(function () {
-        var data = {
-        "story": [{
-        "person": "Jerry",
-        "occupation": "a race car driver",
-        "image": "car.jpg",
-        }, {
-        "person": "Josie",
-        "occupation": "on a vacation far away",
-        "image": "vacay.jpg",
-        },
-        {
-        "person": "Every cheap hood",
-        "occupation": "striking a bargain with the world",
-        "image": "handshake.jpg",
-        }
-        ]
-        };
-        var template = "<div class='story'>" + "<h1>Whatcha Doin'?</h1>" + "<img src='img/{{image}}'/>" +
-            "<p>{{person}} is {{occupation}}</p>" + "</div>";
+            google.maps.event.addDomListener(window, 'load', initializeMap);
+
+        var template = "<div class='story'>" + "<div class='lead'><img class='leadimg' src='img/{{image}}'/></div>" + "<h1>{{hed}}</h1>" + 
+          "<p>{{dek}}</p>" +  "</div>";
         var count = 0;
         render = function () {
-        var html = Mustache.to_html(template, data.story[count]);
-        $('#story').html(html);
+          var html = Mustache.to_html(template, data.story[count]);
+          $('#story').html(html);
+          var texturl = data.story[count].text;
+          $('#story-text').load('text/' + texturl + '#get');
+          initializeMap();
         };
           
         render();
@@ -100,20 +122,24 @@
                                render();
                                }
                                 });
-        });
-        </script>
+
+        
+            });
+            </script> <!-- END google maps -->
         
         <link rel="stylesheet" type="text/css" href="css/test.css" />
         
     <title>Hello World</title>
     </head>
     <body>
-        <div id='story'></div>
-        <button name="next" id="next-story">Next story</button>
+        <div class="nav-bar-top">
         <button name="prev" id="prev-story">Previous story</button>
-
-       <div id="geolocation"></div>
+        <button name="next" id="next-story">Next story</button>
+            </div>
         
+        <div id='story'></div>
+        <div id="story-text"></div>
+        <div id="map-canvas"></div>    
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

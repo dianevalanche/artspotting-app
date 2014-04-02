@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -43,6 +42,13 @@
 		C0CBCDCB18E9F54E006EFFF0 /* mustache.js in Sources */ = {isa = PBXBuildFile; fileRef = C0CBCDC818E9F54E006EFFF0 /* mustache.js */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		F840E1F1165FE0F500CFE078 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
+		1C17F1E0CA864D27B1AAC84C /* NativeTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC28C9DF37B4E83B76A9216 /* NativeTransitions.m */; };
+		BD9DDF75B52741D9B5DF1818 /* CDVTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7D899868A843A1B5B80E79 /* CDVTabBar.m */; };
+		46C1320A1EB7470DAA4F92CE /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDAC228DE50495391A12C8E /* AsyncImageView.m */; };
+		8F5675858BFC4A83A5F36E2E /* CDVAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 444948F55E464E52B099324F /* CDVAnnotation.m */; };
+		816B5516C2F1413DAA37BC5F /* MapKit.m in Sources */ = {isa = PBXBuildFile; fileRef = EA355971D2C84A7DAA878714 /* MapKit.m */; };
+		121E574483E045AEB26D69B6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2DA647FD3442C923A1F34 /* icon.png */; };
+		8255D83486D34BC482645563 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A338CEC5013A4CAD8E38E8EE /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +113,18 @@
 		C0CBCDC818E9F54E006EFFF0 /* mustache.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mustache.js; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = com.smartsetpress.test/config.xml; sourceTree = "<group>"; };
+		5DC28C9DF37B4E83B76A9216 /* NativeTransitions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NativeTransitions.m"; path = "uk.co.ilee.nativetransitions/NativeTransitions.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		EA9D4FC9994F4BE891C8BC02 /* NativeTransitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NativeTransitions.h"; path = "uk.co.ilee.nativetransitions/NativeTransitions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		CC7D899868A843A1B5B80E79 /* CDVTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVTabBar.m"; path = "com.mymee.cordova.plugins.ios-tab-bar/CDVTabBar.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		6DB4318DBE1D4AEC84C89D59 /* CDVTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVTabBar.h"; path = "com.mymee.cordova.plugins.ios-tab-bar/CDVTabBar.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4CDAC228DE50495391A12C8E /* AsyncImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AsyncImageView.m"; path = "com.phonegap.plugins.mapkit/AsyncImageView.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		444948F55E464E52B099324F /* CDVAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVAnnotation.m"; path = "com.phonegap.plugins.mapkit/CDVAnnotation.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		EA355971D2C84A7DAA878714 /* MapKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "MapKit.m"; path = "com.phonegap.plugins.mapkit/MapKit.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		B974F99F5A07409FB61CE6B1 /* AsyncImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AsyncImageView.h"; path = "com.phonegap.plugins.mapkit/AsyncImageView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7A489A2A939B4DE5B9386BFA /* CDVAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVAnnotation.h"; path = "com.phonegap.plugins.mapkit/CDVAnnotation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		FA9ACAC184F3480288087209 /* MapKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MapKit.h"; path = "com.phonegap.plugins.mapkit/MapKit.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		FAE2DA647FD3442C923A1F34 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "icon.png"; path = "icon.png"; sourceTree = "<group>"; fileEncoding = 4; };
+		A338CEC5013A4CAD8E38E8EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MapKit.framework"; path = "System/Library/Frameworks/MapKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +137,7 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
+				8255D83486D34BC482645563 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +218,7 @@
 				308D052D1370CCF300D202BF /* icons */,
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* com.smartsetpress.test-Info.plist */,
+				FAE2DA647FD3442C923A1F34 /* icon.png */,
 			);
 			name = Resources;
 			path = com.smartsetpress.test/Resources;
@@ -211,6 +231,7 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
+				A338CEC5013A4CAD8E38E8EE /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,6 +247,16 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				5DC28C9DF37B4E83B76A9216 /* NativeTransitions.m */,
+				EA9D4FC9994F4BE891C8BC02 /* NativeTransitions.h */,
+				CC7D899868A843A1B5B80E79 /* CDVTabBar.m */,
+				6DB4318DBE1D4AEC84C89D59 /* CDVTabBar.h */,
+				4CDAC228DE50495391A12C8E /* AsyncImageView.m */,
+				444948F55E464E52B099324F /* CDVAnnotation.m */,
+				EA355971D2C84A7DAA878714 /* MapKit.m */,
+				B974F99F5A07409FB61CE6B1 /* AsyncImageView.h */,
+				7A489A2A939B4DE5B9386BFA /* CDVAnnotation.h */,
+				FA9ACAC184F3480288087209 /* MapKit.h */,
 			);
 			name = Plugins;
 			path = com.smartsetpress.test/Plugins;
@@ -321,7 +352,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 500;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "com.smartsetpress.test" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -392,6 +423,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				121E574483E045AEB26D69B6 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +457,11 @@
 				C0CBCDC918E9F54E006EFFF0 /* index.js in Sources */,
 				C0CBCDCA18E9F54E006EFFF0 /* jquery-2.1.0.min.js in Sources */,
 				C0CBCDCB18E9F54E006EFFF0 /* mustache.js in Sources */,
+				1C17F1E0CA864D27B1AAC84C /* NativeTransitions.m in Sources */,
+				BD9DDF75B52741D9B5DF1818 /* CDVTabBar.m in Sources */,
+				46C1320A1EB7470DAA4F92CE /* AsyncImageView.m in Sources */,
+				8F5675858BFC4A83A5F36E2E /* CDVAnnotation.m in Sources */,
+				816B5516C2F1413DAA37BC5F /* MapKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
