@@ -23,12 +23,13 @@
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-2.1.0.min.js" ></script>
         <script type="text/javascript" src="js/mustache.js" ></script>
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmPZzlfpnZ4NQC7-Tj2xeoHfqds1cR2QM&sensor=false">
             </script>
-        
+
         <!--MUSTACHE.JS DATA, TEMPLATE, AND SCRIPT TO ITERATE-->
         <script>
         $(function () {
@@ -88,9 +89,11 @@
             }
             google.maps.event.addDomListener(window, 'load', initializeMap);
 
-        var template = "<div class='story'>" + "<div class='lead'><img class='leadimg' src='img/{{image}}'/></div>" + "<h1>{{hed}}</h1>" + 
+        var template = "<div class='story'>" + "<div class='lead'><img class='leadimg' style='width:100%' src='img/{{image}}'/></div>" + "<h1>{{hed}}</h1>" +
           "<p>{{dek}}</p>" +  "</div>";
-        var count = 0;
+          
+        /*var */count = 0;
+          
         render = function () {
           var html = Mustache.to_html(template, data.story[count]);
           $('#story').html(html);
@@ -101,18 +104,42 @@
           
         render();
           
-        $("#next-story").click(function () {
-        count++;
-        
-        if (count <= data.story.length-1) {
-                               render();}
-        else {
-                               count = 0;
-                               render();
-        }
-        });
+        nextStory = function () {
           
-        $("#prev-story").click(function () {
+          count++;
+          
+          if (count <= data.story.length-1) {
+                              render();}
+          else {
+                                count = 0;
+                                render();
+          };
+          };
+          
+          prevStory = function () {
+            count--;
+            if (count >= 0){
+            render();
+            }
+            else {
+            count = data.story.length-1;
+            render();
+          }
+          
+          };
+          
+        //OLD WAY FOR NON-NATIVE BUTTONS/BECAUSE YOU'RE BAD AT CODE $("#next-story").click(function () {
+        //count++;
+        
+        //if (count <= data.story.length-1) {
+         //                      render();}
+        //else {
+         //                      count = 0;
+         //                      render();
+       // }
+        //});
+          
+        /* $("#prev-story").click(function () {
                                 count--;
                                if (count >= 0){
                                 render();
@@ -121,29 +148,87 @@
                                count = data.story.length-1;
                                render();
                                }
-                                });
+                                });*/
 
         
             });
-            </script> <!-- END google maps -->
+            
+            function toggleTOC() {
+                $(toc).toggle();
+                
+                $("#toc li").on ("click", function(){
+                                 //alert ("success!");
+                                 //test = $(this).index();
+                                 //alert (test);
+                                 count = $(this).index();
+                                 render();
+                                 });
+            };
+        
+            /*var actionSheet = window.nativeControls.ActionSheet();
+            actionSheet.title = "Table of Contents";
+            actionSheet.addButtons ( [ "One", "Two", "Three", "Four", "Five", "Six", ] );*/
+            
+           document.addEventListener("deviceready", function(){
+                                     $(toc).hide();
+                                     var navigationBar = window.nativeControls.NavigationBar();
+                                     //navigationBar.tintColor = window.nativeControls.Color ( "red" );
+                                     navigationBar.barTintColor = window.nativeControls.Color ( "white" );
+                                     navigationBar.addToView();
+                                     
+                                     var navigationItem = window.nativeControls.NavigationItem();
+                                     
+                                     var button1 = window.nativeControls.BarButton();
+                                     button1.title = "previous";
+                                     button1.image = "www/img/back_btn";
+                                     var button2 = window.nativeControls.BarButton();
+                                     button2.title ="next";
+                                     button2.image = "/www/img/next_btn";
+                                     var button3 = window.nativeControls.BarButton();
+                                     button3.title = "toc";
+                                     button3.image = "/www/img/toc_btn_25";
+                                     
+                                     button1.addEventListener ("tap", function (evt) { prevStory();} );
+                                     button2.addEventListener ("tap", function (evt) { nextStory(); } );
+                                     //button3.addEventListener ("tap", function (evt) { actionSheet.show(); });
+                                     button3.addEventListener ("tap", function (evt) { toggleTOC(); });
+                                     
+                                     navigationItem.leftButtons = [button1];
+                                     navigationItem.rightButtons = [button2, button3];
+                                     
+                                     navigationBar.push(navigationItem);
+                                     });
+                                     
+                                     
+        
+            </script>
+        
         
         <link rel="stylesheet" type="text/css" href="css/test.css" />
         
     <title>Hello World</title>
     </head>
     <body>
-        <div class="nav-bar-top">
+
+        <!--<div class="nav-bar-top">
         <button name="prev" id="prev-story">Previous story</button>
         <button name="next" id="next-story">Next story</button>
-            </div>
+            </div>-->
+       <!-- <div id="toc" class="toc">-->
+            <ul id="toc" class="toc">
+                <li>one</li>
+                <li>two</li>
+                <li>three</li>
+            </ul>
+        </div>
         
         <div id='story'></div>
         <div id="story-text"></div>
-        <div id="map-canvas"></div>    
+        <div id="map-canvas"></div>
 
-        <script type="text/javascript" src="cordova.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/jquery-2.1.0.min.js" ></script>
-        <script type="text/javascript" src="js/mustache.js" ></script>
+        <!--<script type="text/javascript" src="js/jquery-2.1.0.min.js" ></script>
+        <script type="text/javascript" src="js/mustache.js" ></script>-->
     </body>
 </html>

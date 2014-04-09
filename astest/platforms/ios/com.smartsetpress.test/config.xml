@@ -35,4 +35,15 @@
     <feature name="MapKit">
         <param name="ios-package" value="MapKitView" />
     </feature>
+    <feature name="NativeControls">
+        <param name="ios-package" value="NativeControls" />
+    </feature>
+    <plugins>
+        <feature name="PKNativeControls">
+            <param name="ios-package" value="PKNativeControls" />
+        </feature>
+    </plugins>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+    </feature>
 </widget>
