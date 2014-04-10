@@ -102,9 +102,50 @@
           initializeMap();
         };
           
+          
+          
         render();
           
-        nextStory = function () {
+          nextStory = function (direction) {
+          
+          setTimeout(function() {
+                     count++;
+                     
+                     if (count <= data.story.length-1) {
+                     render();}
+                     
+                     else {
+                     count = 0;
+                     render();
+                     };
+
+                     },50);
+          
+          nativetransitions.curl(.75, direction);
+          };
+          
+          prevStory = function (direction) {
+          
+          setTimeout(function() {
+                     count--;
+                     
+                     if (count >= 0){
+                     render();
+                     }
+                     
+                     else {
+                     count = data.story.length-1;
+                     render();
+                     }
+                     
+                     },50);
+          
+          nativetransitions.curl(.75, direction);
+          };
+
+          
+        /* NEXT AND PREV WITHOUT TRANSITION EFFECT 
+         nextStory = function () {
           
           count++;
           
@@ -126,7 +167,7 @@
             render();
           }
           
-          };
+          };*/
           
         //OLD WAY FOR NON-NATIVE BUTTONS/BECAUSE YOU'RE BAD AT CODE $("#next-story").click(function () {
         //count++;
@@ -188,9 +229,8 @@
                                      button3.title = "toc";
                                      button3.image = "/www/img/toc_btn_25";
                                      
-                                     button1.addEventListener ("tap", function (evt) { prevStory();} );
-                                     button2.addEventListener ("tap", function (evt) { nextStory(); } );
-                                     //button3.addEventListener ("tap", function (evt) { actionSheet.show(); });
+                                     button1.addEventListener ("tap", function (evt) { prevStory("down");} );
+                                     button2.addEventListener ("tap", function (evt) { nextStory("up"); } );
                                      button3.addEventListener ("tap", function (evt) { toggleTOC(); });
                                      
                                      navigationItem.leftButtons = [button1];
