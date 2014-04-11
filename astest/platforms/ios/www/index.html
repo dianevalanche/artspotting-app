@@ -93,13 +93,31 @@
                        }*/
               },
                        ]
+          
+          };
+          
+          var homescrn = {
+          "buttons": [
+            {
+                "title":"Read",
+                "image":"img/swannFountain_lead.jpg",
+            },
+            {
+                "title":"By Neighborhood",
+                "image":"img/moonTree_lead.jpg",
+            },
+            {
+                "title":"By Map",
+                "image":"img/swannFountain_lead.jpg",
+            },
+          ]
           };
           
           
           
 
-        <!--GOOGLE MAPS SCRIPT-->
-            function initializeMap() {
+    //GOOGLE MAPS SCRIPT
+        function initializeMap() {
                 var myLatlng = new google.maps.LatLng(parseFloat(data.story[count].lat), parseFloat(data.story[count].long));
                 var mapOptions = {
                     center: myLatlng,
@@ -113,17 +131,79 @@
                                                     map: map,
                                                     title:"Hello World!"
                                                     })
-            }
-            google.maps.event.addDomListener(window, 'load', initializeMap);
+          };
+          
+          
+        function bigMap(){
+          var mapCenter = new google.maps.LatLng (39.947450,-75.152260);
+          var myLatlng = new google.maps.LatLng (39.947450,-75.152260);
+          var mapOptions = {
+                center: mapCenter,
+                zoom:15,
+                };
+          
+          var map = new google.maps.Map(document.getElementById('big-map'),
+                                        mapOptions);
+          
+          var infowindow = new google.maps.InfoWindow();
+          var marker, i;
+          var template = "<p>{{hed}}</p><p>{{address-text}}</p>";
+          
+          for (i = 0; i <data.story.length; i++ ) {
+                marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(parseFloat(data.story[i].lat), parseFloat(data.story[i].long)),
+                                map: map
+                                                });
+          
+          
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                var windowText = Mustache.to_html(template, data.story[i]);
+                                                          return function() {
+                                                          infowindow.setContent(windowText);
+                                                          infowindow.open(map, marker);
+                                                          }
+                                                          })(marker, i));
+          }
+          };
 
         var template = "<div class='story'>" + "<div class='lead'><img class='leadimg' style='width:100%' src='img/{{image}}'/></div>" + "<h1>{{hed}}</h1>" +
-          "<p>{{dek}}</p>" +  "</div>";
-          
-          var templateHome = "{{#chapters}} <ul class='sections'>" + "<li style='background-image="+ "'img/{{image}}'>" + "{{name}}</li>" + "</ul>";
+          "<p class='dek'>{{dek}}</p>" + "</div>";
           
         count = 0;
           
+          
+          
         home = function () {
+            $('#page').empty();
+            $('#page').append("<ul id='home'></ul>");
+          
+            var html = Mustache.render("<ul class='sections'>{{#buttons}}<li style='background-image:url({{image}})'>{{title}}</li> {{/buttons}}</ul>", homescrn);
+            $("#home").html(html);
+          
+            $("#home li").on ("click", function(){
+                    toDo = $(this).index();
+                        if (toDo === 0) {
+                            count = 0;
+                            addNav();
+                            render();
+                            }
+                        else if (toDo === 1) {
+                            alert ("this will be the section view!");
+                            }
+                        else if (toDo === 2){
+                            mapBig();
+                        }
+                        else {
+                            alert ("How did you get here?");
+                        }
+                            
+                              });
+            };
+          
+          
+          
+          
+        section = function () {
           $('#page').empty();
           $('#page').append("<ul id='sections'></ul>");
           
@@ -131,24 +211,41 @@
           $('#sections').html(html);
           
           $("#sections li").on ("click", function(){
-                           //alert ("success!");
-                           test = $(this).index();
-                           alert (test);
-                           //count = $(this).index();
-                           //render();
-                           });
-            };
+                                //alert ("success!");
+                                //test = $(this).index();
+                                //alert (test);
+                                count = $(this).index();
+                                render();
+                                });
+          };
+          
+          
+          
+        mapBig = function (){
+          addMapNav();
+          $('#page').empty();
+          $('#page').append("<div id='big-map'>MAP!</div>");
+          bigMap();
+        };
+          
+          
+          
+          
           
         render = function () {
           var html = Mustache.to_html(template, data.story[count]);
-          $('#story').html(html);
+          $('#page').html(html);
           var texturl = data.story[count].text;
+          
+          $('#page').append("<div id='story-text'></div>");
+          $('#page').append("<div id='map-canvas'></div>");
+
           $('#story-text').load('text/' + texturl + '#get');
           initializeMap();
         };
           
           
-        render();
+        //render();
           
         nextStory = function (direction) {
           setTimeout(function() {
@@ -192,38 +289,65 @@
                                  });
             };
         
+        //KEEP NAVIGATION BAR GLOBALLY ACCESSIBLE BY DEFINING IT OUTSIDE THE FUNCTION, THEN ADDING TO VIEW IN THE FUNCITON??????
+        
+
+        
+        addNav = function() {
+            var navigationBar = window.nativeControls.NavigationBar();
+            //navigationBar.tintColor = window.nativeControls.Color ( "red" );
+            navigationBar.barTintColor = window.nativeControls.Color ( "white" );
+            navigationBar.addToView();
+            
+            var navigationItem = window.nativeControls.NavigationItem();
+            
+            var button1 = window.nativeControls.BarButton();
+            button1.title = "previous";
+            button1.image = "www/img/back_btn";
+            var button2 = window.nativeControls.BarButton();
+            button2.title ="next";
+            button2.image = "/www/img/next_btn";
+            var button3 = window.nativeControls.BarButton();
+            button3.title = "toc";
+            button3.image = "/www/img/toc_btn_25";
+            var button4 = window.nativeControls.BarButton();
+            button4.title = "home";
+            button4.image = "/www/img/toc_btn_25";
+            
+            button1.addEventListener ("tap", function (evt) { prevStory("down"); addNav;} );
+            button2.addEventListener ("tap", function (evt) { nextStory("up"); } );
+            button3.addEventListener ("tap", function (evt) { toggleTOC(); });
+            button4.addEventListener ("tap", function (evt) { home(); navigationBar.destroy();});
+            
+            navigationItem.leftButtons = [button1, button4];
+            navigationItem.rightButtons = [button2, button3];
+            
+            navigationBar.push(navigationItem);
+        };
+        
+        addMapNav = function(){
+            var navigationBarMap = window.nativeControls.NavigationBar();
+            //navigationBarMap.tintColor = window.nativeControls.Color ( "red" );
+            navigationBarMap.barTintColor = window.nativeControls.Color ( "white" );
+            navigationBarMap.addToView();
+            
+            var navigationItem = window.nativeControls.NavigationItem();
+            
+            var button1 = window.nativeControls.BarButton();
+            button1.title = "previous";
+            button1.image = "www/img/back_btn";
+            button1.addEventListener ("tap", function (evt) {navigationBarMap.destroy(); render(); addNav();} );
+            
+            navigationItem.leftButtons = [button1];
+
+            navigationBarMap.push(navigationItem);
+        };
+        
         
            document.addEventListener("deviceready", function(){
                                      $(toc).hide();
-                                     var navigationBar = window.nativeControls.NavigationBar();
-                                     //navigationBar.tintColor = window.nativeControls.Color ( "red" );
-                                     navigationBar.barTintColor = window.nativeControls.Color ( "white" );
-                                     navigationBar.addToView();
+                                     home();
                                      
-                                     var navigationItem = window.nativeControls.NavigationItem();
-                                     
-                                     var button1 = window.nativeControls.BarButton();
-                                     button1.title = "previous";
-                                     button1.image = "www/img/back_btn";
-                                     var button2 = window.nativeControls.BarButton();
-                                     button2.title ="next";
-                                     button2.image = "/www/img/next_btn";
-                                     var button3 = window.nativeControls.BarButton();
-                                     button3.title = "toc";
-                                     button3.image = "/www/img/toc_btn_25";
-                                     var button4 = window.nativeControls.BarButton();
-                                     button4.title = "home";
-                                     button4.image = "/www/img/toc_btn_25";
-                                     
-                                     button1.addEventListener ("tap", function (evt) { prevStory("down");} );
-                                     button2.addEventListener ("tap", function (evt) { nextStory("up"); } );
-                                     button3.addEventListener ("tap", function (evt) { toggleTOC(); });
-                                     button4.addEventListener ("tap", function (evt) { home(); });
-                                     
-                                     navigationItem.leftButtons = [button1, button4];
-                                     navigationItem.rightButtons = [button2, button3];
-                                     
-                                     navigationBar.push(navigationItem);
                                      });
                                      
                                      
@@ -248,11 +372,13 @@
                 <li>two</li>
                 <li>three</li>
             </ul>
+            
     <div id="page"> <!--clear or empty this div to change views?-->
-
-        <div id='story'></div>
+       
+        <!--<div id='story'></div>
         <div id="story-text"></div>
-        <div id="map-canvas"></div>
-    </div><!--end page-->
+        <div id="map-canvas"></div>-->
+    </div>
+    <!--end page-->
     </body>
 </html>

@@ -15,7 +15,7 @@ h1 {
 }
 
 #page {
-
+margin:0;
 }
 
 #story {
@@ -36,6 +36,13 @@ overflow:visible !important;
 background:none !important;
 }
 
+#big-map{
+width:100%;
+height:500px;
+overflow:visible !important;
+background:none !important;
+}
+
 #leadimg {
 width:100%;
 height:auto;
@@ -46,6 +53,10 @@ max-width: 100%;
 width:90%
 }
 
+.dek {
+font-family:sans-serif;
+color:#666;
+}
 
 .nav-bar-top {
 position:fixed;
