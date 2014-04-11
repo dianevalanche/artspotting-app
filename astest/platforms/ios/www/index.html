@@ -70,6 +70,33 @@
         }
         ]
         };
+          
+        var contents = {
+          "chapters": [
+              {
+                "name":"The Parkway",
+                "dek":"A summary of the things you see there",
+                "image":"img/swannFountain_lead.jpg",
+                /*"goto": function () {
+                       count = 3;
+                       render();
+                       }*/
+              },
+                       
+              {
+                "name":"North Philadelphia",
+                "dek":"A summary of the things you see there",
+                "image":"img/WallOfRugs-LRG.jpg",
+                /*"goto": function () {
+                       count = 2;
+                       render();
+                       }*/
+              },
+                       ]
+          };
+          
+          
+          
 
         <!--GOOGLE MAPS SCRIPT-->
             function initializeMap() {
@@ -92,7 +119,25 @@
         var template = "<div class='story'>" + "<div class='lead'><img class='leadimg' style='width:100%' src='img/{{image}}'/></div>" + "<h1>{{hed}}</h1>" +
           "<p>{{dek}}</p>" +  "</div>";
           
-        /*var */count = 0;
+          var templateHome = "{{#chapters}} <ul class='sections'>" + "<li style='background-image="+ "'img/{{image}}'>" + "{{name}}</li>" + "</ul>";
+          
+        count = 0;
+          
+        home = function () {
+          $('#page').empty();
+          $('#page').append("<ul id='sections'></ul>");
+          
+          var html = Mustache.render("<ul class='sections'> {{#chapters}}<li style='background-image:url({{image}})'>{{name}}</li> {{/chapters}}</ul>", contents);
+          $('#sections').html(html);
+          
+          $("#sections li").on ("click", function(){
+                           //alert ("success!");
+                           test = $(this).index();
+                           alert (test);
+                           //count = $(this).index();
+                           //render();
+                           });
+            };
           
         render = function () {
           var html = Mustache.to_html(template, data.story[count]);
@@ -103,95 +148,36 @@
         };
           
           
-          
         render();
           
-          nextStory = function (direction) {
-          
+        nextStory = function (direction) {
           setTimeout(function() {
-                     count++;
-                     
-                     if (count <= data.story.length-1) {
+            count++;
+                if (count <= data.story.length-1) {
                      render();}
-                     
-                     else {
+                else {
                      count = 0;
                      render();
                      };
-
                      },50);
-          
           nativetransitions.curl(.75, direction);
-          };
+        };
           
-          prevStory = function (direction) {
-          
+        prevStory = function (direction) {
           setTimeout(function() {
-                     count--;
-                     
-                     if (count >= 0){
+            count--;
+                if (count >= 0){
                      render();
                      }
-                     
-                     else {
+                else {
                      count = data.story.length-1;
                      render();
                      }
                      
                      },50);
-          
           nativetransitions.curl(.75, direction);
-          };
+        };
 
-          
-        /* NEXT AND PREV WITHOUT TRANSITION EFFECT 
-         nextStory = function () {
-          
-          count++;
-          
-          if (count <= data.story.length-1) {
-                              render();}
-          else {
-                                count = 0;
-                                render();
-          };
-          };
-          
-          prevStory = function () {
-            count--;
-            if (count >= 0){
-            render();
-            }
-            else {
-            count = data.story.length-1;
-            render();
-          }
-          
-          };*/
-          
-        //OLD WAY FOR NON-NATIVE BUTTONS/BECAUSE YOU'RE BAD AT CODE $("#next-story").click(function () {
-        //count++;
-        
-        //if (count <= data.story.length-1) {
-         //                      render();}
-        //else {
-         //                      count = 0;
-         //                      render();
-       // }
-        //});
-          
-        /* $("#prev-story").click(function () {
-                                count--;
-                               if (count >= 0){
-                                render();
-                               }
-                               else {
-                               count = data.story.length-1;
-                               render();
-                               }
-                                });*/
-
-        
             });
             
             function toggleTOC() {
@@ -206,10 +192,7 @@
                                  });
             };
         
-            /*var actionSheet = window.nativeControls.ActionSheet();
-            actionSheet.title = "Table of Contents";
-            actionSheet.addButtons ( [ "One", "Two", "Three", "Four", "Five", "Six", ] );*/
-            
+        
            document.addEventListener("deviceready", function(){
                                      $(toc).hide();
                                      var navigationBar = window.nativeControls.NavigationBar();
@@ -228,12 +211,16 @@
                                      var button3 = window.nativeControls.BarButton();
                                      button3.title = "toc";
                                      button3.image = "/www/img/toc_btn_25";
+                                     var button4 = window.nativeControls.BarButton();
+                                     button4.title = "home";
+                                     button4.image = "/www/img/toc_btn_25";
                                      
                                      button1.addEventListener ("tap", function (evt) { prevStory("down");} );
                                      button2.addEventListener ("tap", function (evt) { nextStory("up"); } );
                                      button3.addEventListener ("tap", function (evt) { toggleTOC(); });
+                                     button4.addEventListener ("tap", function (evt) { home(); });
                                      
-                                     navigationItem.leftButtons = [button1];
+                                     navigationItem.leftButtons = [button1, button4];
                                      navigationItem.rightButtons = [button2, button3];
                                      
                                      navigationBar.push(navigationItem);
@@ -249,26 +236,23 @@
     <title>Hello World</title>
     </head>
     <body>
-
+        
         <!--<div class="nav-bar-top">
         <button name="prev" id="prev-story">Previous story</button>
         <button name="next" id="next-story">Next story</button>
-            </div>-->
-       <!-- <div id="toc" class="toc">-->
+        </div>-->
+        
+        
             <ul id="toc" class="toc">
                 <li>one</li>
                 <li>two</li>
                 <li>three</li>
             </ul>
-        </div>
-        
+    <div id="page"> <!--clear or empty this div to change views?-->
+
         <div id='story'></div>
         <div id="story-text"></div>
         <div id="map-canvas"></div>
-
-        <!--<script type="text/javascript" src="cordova.js"></script>-->
-        <script type="text/javascript" src="js/index.js"></script>
-        <!--<script type="text/javascript" src="js/jquery-2.1.0.min.js" ></script>
-        <script type="text/javascript" src="js/mustache.js" ></script>-->
+    </div><!--end page-->
     </body>
 </html>
